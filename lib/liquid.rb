@@ -27,7 +27,7 @@ module Liquid
   TagStart                    = /\{\%\r?\n?/
   TagEnd                      = /\r?\n?\%\}/
   VariableSignature           = /\(?[\w\-\.\[\]]\)?/
-  VariableSegment             = /[\w\-]/
+  VariableSegment             = /[\$?\w\-]/
   VariableStart               = /\{\{/
   VariableEnd                 = /\}\}/
   VariableIncompleteEnd       = /\}\}?/
