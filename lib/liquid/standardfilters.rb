@@ -197,7 +197,11 @@ module Liquid
       end
 
       if date.respond_to?(:strftime)
-        date.strftime(format.to_s)
+        if defined?(I18n)
+          I18n.l(date, format: format.to_s)
+        else
+          date.strftime(format.to_s)
+        end
       else
         input
       end
