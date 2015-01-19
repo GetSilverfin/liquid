@@ -26,7 +26,7 @@ module Liquid
   VariableAttributeSeparator  = '.'
   TagStart                    = /\{\%\s*\r?\n?/
   TagEnd                      = /\r?\n?\s*\%\}/
-  VariableSignature           = /\(?[\w\-\.\[\]]\)?/
+  VariableSignature           = /\(?[$\w\-\.\[\]]\)?/
   VariableSegment             = /[\$?\w\-]/
   VariableStart               = /\{\{/
   VariableEnd                 = /\}\}/
