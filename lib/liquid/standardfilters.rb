@@ -268,7 +268,11 @@ module Liquid
 
       return input unless date = Utils.to_date(input)
 
-      date.strftime(format.to_s)
+      if defined?(::I18n)
+        ::I18n.l(date, format: format.to_s)
+      else
+        date.strftime(format.to_s)
+      end
     end
 
     # Get the first element of the passed in array
