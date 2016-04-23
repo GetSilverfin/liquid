@@ -17,6 +17,8 @@ module Liquid
         @to = $1
         @from = Variable.new($2,options)
         @from.line_number = line_number
+
+        @to = Expression.parse($1) if @to =~ VariableLookup::SQUARE_BRACKETED
       else
         raise SyntaxError.new options[:locale].t("errors.syntax.assign".freeze)
       end
@@ -24,7 +26,8 @@ module Liquid
 
     def render(context)
       val = @from.render(context)
-      context.scopes.last[@to] = val
+      to = @to.respond_to?(:evaluate) ? @to.evaluate(context) : @to
+      context.scopes.last[to] = val
       context.increment_used_resources(:assign_score_current, val)
       ''.freeze
     end
