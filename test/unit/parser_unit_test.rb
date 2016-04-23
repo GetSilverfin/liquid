@@ -54,6 +54,9 @@ class ParserUnitTest < Minitest::Test
     assert_equal '6.0', p.expression
     assert_equal "'lol'", p.expression
     assert_equal '"wut"', p.expression
+
+    p = Parser.new('[something]')
+    assert_equal '[something]', p.expression
   end
 
   def test_ranges

@@ -23,6 +23,12 @@ class AssignTest < Minitest::Test
       'values' => %w(foo bar baz))
   end
 
+  def test_assigned_with_brackets
+    assert_template_result('.baz.',
+                           '{% assign foo = variable_name %}{% assign [foo] = "baz" %}.{{ [variable_name] }}.',
+                           'variable_name' => 'bar')
+  end
+
   def test_assign_with_filter
     assert_template_result('.bar.',
       '{% assign foo = values | split: "," %}.{{ foo[1] }}.',

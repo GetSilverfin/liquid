@@ -46,7 +46,7 @@ module Liquid
 
     def expression
       token = @tokens[@p]
-      if token[0] == :id
+      if [:id, :open_square].include? token[0]
         variable_signature
       elsif [:string, :number].include? token[0]
         consume
@@ -74,7 +74,8 @@ module Liquid
     end
 
     def variable_signature
-      str = consume(:id)
+      str = ""
+      str << consume(:id) unless @tokens[@p][0] == :open_square
       while look(:open_square)
         str << consume
         str << expression
