@@ -81,6 +81,7 @@ class StandardFiltersTest < Minitest::Test
     assert_equal 'o', @filters.slice('foobar', 1, 1)
     assert_equal 'bar', @filters.slice('foobar', 3, 3)
     assert_equal 'ar', @filters.slice('foobar', -2, 2)
+    assert_equal 'ar', @filters.slice('foobar', -2, 2.0)
     assert_equal 'ar', @filters.slice('foobar', -2, 1000)
     assert_equal 'r', @filters.slice('foobar', -1)
     assert_equal '', @filters.slice(nil, 0)

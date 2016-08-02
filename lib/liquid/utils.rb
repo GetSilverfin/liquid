@@ -34,7 +34,7 @@ module Liquid
     end
 
     def self.to_integer(num)
-      return num if num.is_a?(Integer)
+      return num.to_i if num.is_a?(Numeric)
       num = num.to_s
       begin
         Integer(num)
