@@ -76,6 +76,10 @@ module Liquid
           end
         rescue MemoryError => e
           raise e
+        rescue CustomError => e
+          e.markup_context ||= token.raw.strip
+          e.line_number    ||= token.line_number
+          raise e
         rescue UndefinedVariable, UndefinedDropMethod, UndefinedFilter => e
           context.handle_error(e, token.line_number)
           output << nil
