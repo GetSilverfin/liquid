@@ -1,6 +1,6 @@
 module Liquid
   class BlockBody
-    FullToken = /\A#{TagStart}\s*(\=?\$[0-9]{1,2}\+\w*|\=result|\=unexplained|\=unreconciled|t\=|\=t|\w+)\s*(.*)?#{TagEnd}\z/om
+    FullToken = /\A#{TagStart}\s*(\=?\$[0-9]{1,2}[+-]\w*|\=result|\=unexplained|\=unreconciled|t\=|\=t|\w+)\s*(.*)?#{TagEnd}\z/om
     ContentOfVariable = /\A#{VariableStart}(.*)#{VariableEnd}\z/om
     TAGSTART = "{%".freeze
     VARSTART = "{{".freeze
