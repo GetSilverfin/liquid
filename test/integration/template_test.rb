@@ -101,6 +101,21 @@ class TemplateTest < Minitest::Test
     assert_equal "", t.render!("bar" => SomethingWithLength.new)
   end
 
+  def test_resource_limits_render_time
+    t = Template.parse("{% for a in (1..100) %} foo {% endfor %}")
+    t.resource_limits.render_time_limit = 0.00000001
+    assert_equal "Liquid error: The time limit of 1.0e-08s was reached", t.render
+    assert t.resource_limits.time_limit_reached?
+
+    t.resource_limits.render_time_limit = 1000
+    assert_equal (" foo " * 100), t.render!
+    refute_nil t.resource_limits.render_end_time
+
+    t.resource_limits.render_time_limit = nil
+    assert_equal (" foo " * 100), t.render!
+    assert_nil t.resource_limits.render_end_time
+  end
+
   def test_resource_limits_render_length
     t = Template.parse("0123456789")
     t.resource_limits.render_length_limit = 5

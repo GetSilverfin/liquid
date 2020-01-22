@@ -54,6 +54,7 @@ module Liquid
   StackLevelError = Class.new(Error)
   TaintedError = Class.new(Error)
   MemoryError = Class.new(Error)
+  TimeLimitError = Class.new(Error)
   ZeroDivisionError = Class.new(Error)
   FloatDomainError = Class.new(Error)
   UndefinedVariable = Class.new(Error)

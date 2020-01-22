@@ -74,7 +74,7 @@ module Liquid
           unless token.is_a?(Block) && token.blank?
             output << node_output
           end
-        rescue MemoryError => e
+        rescue MemoryError, TimeLimitError => e
           raise e
         rescue CustomError => e
           e.markup_context ||= token.raw.strip
@@ -100,6 +100,8 @@ module Liquid
       context.resource_limits.render_length += node_output.length
       if context.resource_limits.reached?
         raise MemoryError.new("Memory limits exceeded".freeze)
+      elsif context.resource_limits.time_limit_reached?
+        raise TimeLimitError.new("The time limit of #{context.resource_limits.render_time_limit}s was reached".freeze)
       end
       node_output
     end
