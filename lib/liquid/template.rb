@@ -197,7 +197,7 @@ module Liquid
           @root.render(context)
         end
         result.respond_to?(:join) ? result.join : result
-      rescue Liquid::MemoryError => e
+      rescue Liquid::MemoryError, Liquid::TimeLimitError => e
         context.handle_error(e)
       ensure
         @errors = context.errors
