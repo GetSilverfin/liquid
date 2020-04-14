@@ -17,11 +17,13 @@ module Liquid
       str
     end
 
-    def self.render(e)
+    def self.render(e, markup_context: nil)
       if e.is_a?(Liquid::Error)
         e.to_s
       else
-        "Liquid error: #{e}"
+        message = "Liquid error: #{e}"
+        message += " in code: `#{markup_context}`" if markup_context
+        message
       end
     end
 

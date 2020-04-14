@@ -73,7 +73,7 @@ module Liquid
       @interrupts.pop
     end
 
-    def handle_error(e, line_number = nil)
+    def handle_error(e, line_number = nil, markup_context: nil)
       if e.is_a?(Liquid::Error)
         e.template_name ||= template_name
         e.line_number ||= line_number
@@ -97,7 +97,7 @@ module Liquid
         end
       end
       errors.push(e)
-      output || Liquid::Error.render(e)
+      output || Liquid::Error.render(e, markup_context: markup_context)
     end
 
     def invoke(method, *args)

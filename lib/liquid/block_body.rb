@@ -84,7 +84,7 @@ module Liquid
           context.handle_error(e, token.line_number)
           output << nil
         rescue ::StandardError => e
-          output << context.handle_error(e, token.line_number)
+          output << context.handle_error(e, token.line_number, markup_context: token.raw.strip)
         end
       end
 
