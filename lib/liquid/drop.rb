@@ -61,6 +61,10 @@ module Liquid
       invokable_methods.include?(method_name.to_s)
     end
 
+    def self.blacklist_methods(*methods)
+      @blacklisted_methods ||= methods
+    end
+
     def self.invokable_methods
       @invokable_methods ||= begin
         blacklist = Liquid::Drop.public_instance_methods + [:each]
@@ -70,7 +74,8 @@ module Liquid
           blacklist -= [:sort, :count, :first, :min, :max, :include?]
         end
 
-        whitelist = [:to_liquid] + (public_instance_methods - blacklist)
+        class_blacklisted_methods = @blacklisted_methods || []
+        whitelist = [:to_liquid] + (public_instance_methods - blacklist - class_blacklisted_methods)
         Set.new(whitelist.map(&:to_s))
       end
     end
